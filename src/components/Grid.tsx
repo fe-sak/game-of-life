@@ -14,6 +14,7 @@ const cols = 50;
 const Container = styled.div`
   display: inline-grid;
   grid-template-columns: repeat(${rows}, auto);
+  -webkit-user-drag: none;
 `;
 
 const Grid: FC = () => {
