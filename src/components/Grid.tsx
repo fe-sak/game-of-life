@@ -23,6 +23,8 @@ const Grid: FC = () => {
   const runningRef = useRef(running);
   runningRef.current = running;
 
+  const [mouseButtonPressed, setMouseButtonPressed] = useState(false);
+
   const toggleCell = (x: number, y: number) => {
     const newGrid = produce(grid, (gridDraft) => {
       const clickedCell = grid[x][y];
@@ -77,6 +79,19 @@ const Grid: FC = () => {
     setGrid(buildDeadGrid(rows, cols));
   };
 
+  window.addEventListener('mousedown', (event) => {
+    if (event.button !== 0) return;
+    setMouseButtonPressed(true);
+  });
+  window.addEventListener('mouseup', (event) => {
+    if (event.button !== 0) return;
+    setMouseButtonPressed(false);
+  });
+
+  const draw = (x: number, y: number) => {
+    if (mouseButtonPressed) toggleCell(x, y);
+  };
+
   return (
     <div>
       <button onClick={toggleRunning}>{running ? 'Stop' : 'Run'}</button>
@@ -90,8 +105,11 @@ const Grid: FC = () => {
             <Cell
               key={`${x}-${y}`}
               alive={cell ? true : false}
-              onClick={() => toggleCell(x, y)}
               disabled={running}
+              onMouseDown={(event) => {
+                if (event.button === 0) toggleCell(x, y);
+              }}
+              onMouseEnter={() => draw(x, y)}
             />
           ))
         )}
