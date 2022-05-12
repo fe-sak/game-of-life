@@ -19,16 +19,8 @@ export const countLiveNeighbours = (
   cols: number
 ) =>
   neighboursPositions.reduce((acc, [i, j]) => {
-    const neighbourX = x + i;
-    const neighbourY = y + j;
-
-    const neighbourOutOfBounds =
-      neighbourX < 0 ||
-      neighbourX >= rows ||
-      neighbourY < 0 ||
-      neighbourY >= cols;
-
-    if (neighbourOutOfBounds) return acc;
+    const neighbourX = (x + i + rows) % rows;
+    const neighbourY = (y + j + cols) % cols;
 
     const neighbour = grid[neighbourX][neighbourY];
 

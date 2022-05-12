@@ -10,10 +10,11 @@ import {
 
 const rows = 50;
 const cols = 50;
+const speed = 1;
 
 const Container = styled.div`
   display: inline-grid;
-  grid-template-columns: repeat(${rows}, auto);
+  grid-template-columns: repeat(${cols}, auto);
   -webkit-user-drag: none;
 `;
 
@@ -25,6 +26,14 @@ const Grid: FC = () => {
   runningRef.current = running;
 
   const [mouseButtonPressed, setMouseButtonPressed] = useState(false);
+  window.addEventListener('mousedown', (event) => {
+    if (event.button !== 0) return;
+    setMouseButtonPressed(true);
+  });
+  window.addEventListener('mouseup', (event) => {
+    if (event.button !== 0) return;
+    setMouseButtonPressed(false);
+  });
 
   const toggleCell = (x: number, y: number) => {
     const newGrid = produce(grid, (gridDraft) => {
@@ -32,6 +41,19 @@ const Grid: FC = () => {
       gridDraft[x][y] = clickedCell === 1 ? 0 : 1;
     });
     setGrid(newGrid);
+  };
+
+  const draw = (x: number, y: number) => {
+    if (mouseButtonPressed) toggleCell(x, y);
+  };
+
+  const randomGrid = () => {
+    setGrid(buildRandomGrid(rows, cols));
+  };
+
+  const clearGrid = () => {
+    setRunning(false);
+    setGrid(buildDeadGrid(rows, cols));
   };
 
   const toggleRunning = () => {
@@ -45,7 +67,7 @@ const Grid: FC = () => {
     if (!runningRef.current) return;
 
     setGrid((currentGrid) => {
-      return produce(currentGrid, (gridDraft) => {
+      const newGrid = produce(currentGrid, (gridDraft) => {
         for (let x = 0; x < rows; x++) {
           for (let y = 0; y < cols; y++) {
             const currentCell = currentGrid[x][y];
@@ -57,41 +79,18 @@ const Grid: FC = () => {
               cols
             );
 
-            const isLiveCell = currentCell;
-
-            if (isLiveCell && (liveNeighbours < 2 || liveNeighbours > 3))
+            if (currentCell && (liveNeighbours < 2 || liveNeighbours > 3))
               gridDraft[x][y] = 0;
 
-            if (!isLiveCell && liveNeighbours === 3) gridDraft[x][y] = 1;
+            if (!currentCell && liveNeighbours === 3) gridDraft[x][y] = 1;
           }
         }
       });
+      return newGrid;
     });
 
-    setTimeout(runSimulation, 1000);
+    setTimeout(runSimulation, 1000 / speed);
   }, []);
-
-  const randomGrid = () => {
-    setGrid(buildRandomGrid(rows, cols));
-  };
-
-  const clearGrid = () => {
-    setRunning(false);
-    setGrid(buildDeadGrid(rows, cols));
-  };
-
-  window.addEventListener('mousedown', (event) => {
-    if (event.button !== 0) return;
-    setMouseButtonPressed(true);
-  });
-  window.addEventListener('mouseup', (event) => {
-    if (event.button !== 0) return;
-    setMouseButtonPressed(false);
-  });
-
-  const draw = (x: number, y: number) => {
-    if (mouseButtonPressed) toggleCell(x, y);
-  };
 
   return (
     <div>
