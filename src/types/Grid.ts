@@ -1,3 +1,1 @@
-import CellInterface from './Cell';
-
-export type GridType = CellInterface[][];
+export type GridType = (0 | 1)[][];
