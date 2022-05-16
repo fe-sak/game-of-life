@@ -28,7 +28,11 @@ const cols = 30;
 const Home: FC = () => {
   const [grid, setGrid] = useState(() => buildDeadGrid(rows, cols));
   const [tooltip, showTooltip] = useState(true);
-  const simulationTimeout: { current: NodeJS.Timeout | null } = useRef(null);
+
+  const simulationTimeout: { current: NodeJS.Timeout[] } = useRef([]);
+  const clearAllTimeouts = () => {
+    simulationTimeout.current.forEach((id) => clearTimeout(id));
+  };
 
   const [running, setRunning] = useState(false);
   const runningRef = useRef(running);
@@ -60,18 +64,24 @@ const Home: FC = () => {
     if (mouseButtonPressed) toggleCell(x, y);
   };
 
-  const randomGrid = () => {
-    if (simulationTimeout.current) {
-      clearTimeout(simulationTimeout.current);
+  const resetSimulationTimeout = () => {
+    clearAllTimeouts();
+
+    if (running) {
       const timeout = 1000 / speedRef.current;
       setTimeout(runSimulation, timeout);
     }
+  };
+
+  const randomGrid = () => {
+    resetSimulationTimeout();
     setGrid(buildRandomGrid(rows, cols));
   };
 
   const clearGrid = () => {
     setRunning(false);
     setGrid(buildDeadGrid(rows, cols));
+    resetSimulationTimeout();
   };
 
   const toggleRunning = () => {
@@ -84,6 +94,7 @@ const Home: FC = () => {
   const runSimulation = useCallback(() => {
     if (!runningRef.current) return;
 
+    clearAllTimeouts();
     setGrid((currentGrid) => {
       const newGrid = produce(currentGrid, (gridDraft) => {
         for (let x = 0; x < rows; x++) {
@@ -108,7 +119,9 @@ const Home: FC = () => {
     });
 
     const timeout = 1000 / speedRef.current;
-    simulationTimeout.current = setTimeout(runSimulation, timeout);
+    const timeoutId = setTimeout(runSimulation, timeout);
+
+    simulationTimeout.current.push(timeoutId);
   }, [speedRef.current]);
 
   const handleSpeedSlider = (_event: Event, newValue: number | number[]) => {
@@ -116,7 +129,7 @@ const Home: FC = () => {
       speedRef.current = newValue as number;
       setSpeed(newValue as number);
     }
-    if (running) runSimulation();
+    if (running) resetSimulationTimeout();
   };
 
   const marks = [
@@ -169,7 +182,7 @@ const Home: FC = () => {
             onChange={handleSpeedSlider}
             value={speed}
             marks={marks}
-            step={0.5}
+            step={1}
             min={1}
             max={10}
           />
