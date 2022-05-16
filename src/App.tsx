@@ -1,8 +1,13 @@
 import React, { FC } from 'react';
-import Grid from './components/Grid';
+import Viewport from './components/Viewport';
+import Home from './pages/Home';
 
 const App: FC = () => {
-  return <Grid />;
+  return (
+    <Viewport>
+      <Home />
+    </Viewport>
+  );
 };
 
 export default App;
