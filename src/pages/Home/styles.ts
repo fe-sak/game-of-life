@@ -5,6 +5,7 @@ import ShuffleIcon from '@mui/icons-material/Shuffle';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import SpeedIcon from '@mui/icons-material/Speed';
 import { Slider } from '@mui/material';
+
 interface CellProps {
   alive: 1 | undefined;
   disabled: boolean;
