@@ -14,19 +14,15 @@ import {
   StyledShuffleIcon,
   StyledRestartAltIcon,
   ButtonContainer,
-  StyledSlider,
-  SpeedControl,
-  StyledSpeedIcon,
 } from './styles';
-import ReactTooltip from 'react-tooltip';
 import Grid from '../../components/Grid';
+import SpeedControl from '../../components/SpeedControl';
 
 const rows = 20;
 const cols = 30;
 
 const Home: FC = () => {
   const [grid, setGrid] = useState(() => buildDeadGrid(rows, cols));
-  const [tooltip, showTooltip] = useState(true);
 
   const simulationTimeout: { current: NodeJS.Timeout[] } = useRef([]);
   const clearAllTimeouts = () => {
@@ -101,25 +97,10 @@ const Home: FC = () => {
     simulationTimeout.current.push(timeoutId);
   }, [speedRef.current]);
 
-  const handleSpeedSlider = (_event: Event, newValue: number | number[]) => {
-    if (newValue !== speed) {
-      speedRef.current = newValue as number;
-      setSpeed(newValue as number);
-    }
-    if (running) resetSimulationTimeout();
-  };
-
-  const marks = [
-    { value: 1, label: '1x' },
-    { value: 5, label: '5x' },
-    { value: 10, label: '10x' },
-  ];
-
   return (
     <Container>
       <GridContainer>
         <Grid cols={cols} running={running} grid={grid} setGrid={setGrid} />
-
         <GridControls>
           <ButtonContainer onClick={toggleRunning}>
             {running ? <StyledStopIcon /> : <StyledPlayArrowIcon />}
@@ -134,27 +115,13 @@ const Home: FC = () => {
           </ButtonContainer>
         </GridControls>
 
-        <SpeedControl>
-          <StyledSlider
-            onChange={handleSpeedSlider}
-            value={speed}
-            marks={marks}
-            step={1}
-            min={1}
-            max={10}
-          />
-          <div>
-            <StyledSpeedIcon
-              data-tip='Adjust speed of simulation'
-              onMouseEnter={() => showTooltip(true)}
-              onMouseLeave={() => {
-                showTooltip(false);
-                setTimeout(() => showTooltip(true), 50);
-              }}
-            />
-            {tooltip && <ReactTooltip effect='solid' />}
-          </div>
-        </SpeedControl>
+        <SpeedControl
+          speed={speed}
+          speedRef={speedRef}
+          setSpeed={setSpeed}
+          running={running}
+          resetSimulationTimeout={resetSimulationTimeout}
+        />
       </GridContainer>
     </Container>
   );
