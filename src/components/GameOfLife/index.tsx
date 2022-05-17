@@ -66,7 +66,7 @@ const GameOfLife: FC = () => {
   const resetTimeout = () => {
     clearTimeouts();
 
-    if (running) newTimeout();
+    newTimeout();
   };
 
   return (
@@ -86,6 +86,7 @@ const GameOfLife: FC = () => {
           clearTimeouts={clearTimeouts}
         />
         <SpeedControl
+          running={running}
           speed={speed}
           speedRef={speedRef}
           setSpeed={setSpeed}

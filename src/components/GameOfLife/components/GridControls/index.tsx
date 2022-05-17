@@ -37,7 +37,9 @@ const GridControls: FC<Props> = ({
   clearTimeouts,
 }) => {
   const randomGrid = () => {
-    resetTimeout();
+    if (running) resetTimeout();
+    else clearTimeout();
+
     setGrid(buildRandomGrid(rows, cols));
   };
 

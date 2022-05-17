@@ -3,6 +3,7 @@ import ReactTooltip from 'react-tooltip';
 import { Container, StyledSlider, StyledSpeedIcon } from './styles';
 
 interface Props {
+  running: boolean;
   speed: number;
   speedRef: React.MutableRefObject<number>;
   setSpeed: React.Dispatch<React.SetStateAction<number>>;
@@ -10,6 +11,7 @@ interface Props {
 }
 
 const SpeedControl: FC<Props> = ({
+  running,
   speed,
   speedRef,
   setSpeed,
@@ -23,7 +25,7 @@ const SpeedControl: FC<Props> = ({
       setSpeed(newValue as number);
     }
 
-    resetTimeout();
+    if (running) resetTimeout();
   };
 
   const marks = [
