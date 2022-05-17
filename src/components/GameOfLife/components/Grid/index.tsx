@@ -1,6 +1,6 @@
 import produce from 'immer';
 import React, { FC, useMemo, useState } from 'react';
-import { GridType } from '../../types/Grid';
+import { GridType } from '../../../../types/Grid';
 import { Cell, Container } from './styles';
 
 interface Props {

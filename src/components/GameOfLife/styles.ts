@@ -1,6 +1,5 @@
 import { styled } from '@mui/material/styles';
 
-
 interface CellProps {
   alive: 1 | undefined;
   disabled: boolean;
@@ -32,7 +31,3 @@ export const Grid = styled('div')<{ cols: number }>`
   grid-template-columns: repeat(${({ cols }) => cols}, auto);
   -webkit-user-drag: none;
 `;
-
-
-
-
