@@ -6,16 +6,14 @@ interface Props {
   speed: number;
   speedRef: React.MutableRefObject<number>;
   setSpeed: React.Dispatch<React.SetStateAction<number>>;
-  running: boolean;
-  resetSimulationTimeout: () => void;
+  resetTimeout: () => void;
 }
 
 const SpeedControl: FC<Props> = ({
   speed,
   speedRef,
   setSpeed,
-  running,
-  resetSimulationTimeout,
+  resetTimeout,
 }) => {
   const [tooltip, showTooltip] = useState(true);
 
@@ -24,7 +22,8 @@ const SpeedControl: FC<Props> = ({
       speedRef.current = newValue as number;
       setSpeed(newValue as number);
     }
-    if (running) resetSimulationTimeout();
+
+    resetTimeout();
   };
 
   const marks = [

@@ -1,6 +1,9 @@
 import React, { FC } from 'react';
 import { GridType } from '../../../../types/Grid';
-import { buildDeadGrid, buildRandomGrid } from '../../../../utils/gridFunctions';
+import {
+  buildDeadGrid,
+  buildRandomGrid,
+} from '../../../../utils/gridFunctions';
 import {
   ButtonContainer,
   Container,
@@ -16,9 +19,10 @@ interface Props {
   running: boolean;
   setRunning: React.Dispatch<React.SetStateAction<boolean>>;
   runningRef: React.MutableRefObject<boolean>;
-  resetSimulationTimeout: () => void;
   setGrid: React.Dispatch<React.SetStateAction<GridType>>;
   runSimulation: () => void;
+  resetTimeout: () => void;
+  clearTimeouts: () => void;
 }
 
 const GridControls: FC<Props> = ({
@@ -27,19 +31,20 @@ const GridControls: FC<Props> = ({
   running,
   setRunning,
   runningRef,
-  resetSimulationTimeout,
   setGrid,
   runSimulation,
+  resetTimeout,
+  clearTimeouts,
 }) => {
   const randomGrid = () => {
-    resetSimulationTimeout();
+    resetTimeout();
     setGrid(buildRandomGrid(rows, cols));
   };
 
   const clearGrid = () => {
     setRunning(false);
     setGrid(buildDeadGrid(rows, cols));
-    resetSimulationTimeout();
+    clearTimeouts();
   };
 
   const toggleRunning = () => {
@@ -48,7 +53,7 @@ const GridControls: FC<Props> = ({
 
     if (!running) runSimulation();
   };
-  
+
   return (
     <Container>
       <ButtonContainer onClick={toggleRunning}>

@@ -22,20 +22,11 @@ const GameOfLife: FC = () => {
 
   const simulationTimeouts: { current: NodeJS.Timeout[] } = useRef([]);
 
-  const resetSimulationTimeout = () => {
-    clearAllTimeouts(simulationTimeouts);
-
-    if (running) {
-      const timeout = 1000 / speedRef.current;
-      const timeoutId = setTimeout(runSimulation, timeout);
-      simulationTimeouts.current.push(timeoutId);
-    }
-  };
-
   const runSimulation = useCallback(() => {
     if (!runningRef.current) return;
 
-    clearAllTimeouts(simulationTimeouts);
+    clearTimeouts();
+
     setGrid((currentGrid) => {
       const newGrid = produce(currentGrid, (gridDraft) => {
         for (let x = 0; x < rows; x++) {
@@ -59,11 +50,24 @@ const GameOfLife: FC = () => {
       return newGrid;
     });
 
+    newTimeout();
+  }, [speedRef.current]);
+
+  const clearTimeouts = () => {
+    simulationTimeouts.current.forEach((id) => clearTimeout(id));
+  };
+
+  function newTimeout() {
     const timeout = 1000 / speedRef.current;
     const timeoutId = setTimeout(runSimulation, timeout);
-
     simulationTimeouts.current.push(timeoutId);
-  }, [speedRef.current]);
+  }
+
+  const resetTimeout = () => {
+    clearTimeouts();
+
+    if (running) newTimeout();
+  };
 
   return (
     <Container>
@@ -76,16 +80,16 @@ const GameOfLife: FC = () => {
           running={running}
           setRunning={setRunning}
           runningRef={runningRef}
-          resetSimulationTimeout={resetSimulationTimeout}
           setGrid={setGrid}
           runSimulation={runSimulation}
+          resetTimeout={resetTimeout}
+          clearTimeouts={clearTimeouts}
         />
         <SpeedControl
           speed={speed}
           speedRef={speedRef}
           setSpeed={setSpeed}
-          running={running}
-          resetSimulationTimeout={resetSimulationTimeout}
+          resetTimeout={resetTimeout}
         />
       </GridContainer>
     </Container>
@@ -93,7 +97,3 @@ const GameOfLife: FC = () => {
 };
 
 export default GameOfLife;
-
-const clearAllTimeouts = (simulationTimeout: { current: NodeJS.Timeout[] }) => {
-  simulationTimeout.current.forEach((id) => clearTimeout(id));
-};
