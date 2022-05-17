@@ -1,7 +1,7 @@
 import React, { FC, useCallback, useRef, useState } from 'react';
 import produce from 'immer';
 import { buildDeadGrid, countLiveNeighbours } from '../../utils/gridFunctions';
-import { Container, GridContainer } from './styles';
+import { Container } from './styles';
 import Grid from './components/Grid';
 import SpeedControl from './components/SpeedControl';
 import GridControls from './components/GridControls';
@@ -71,28 +71,26 @@ const GameOfLife: FC = () => {
 
   return (
     <Container>
-      <GridContainer>
-        <Grid cols={cols} running={running} grid={grid} setGrid={setGrid} />
+      <Grid cols={cols} running={running} grid={grid} setGrid={setGrid} />
 
-        <GridControls
-          rows={rows}
-          cols={cols}
-          running={running}
-          setRunning={setRunning}
-          runningRef={runningRef}
-          setGrid={setGrid}
-          runSimulation={runSimulation}
-          resetTimeout={resetTimeout}
-          clearTimeouts={clearTimeouts}
-        />
-        <SpeedControl
-          running={running}
-          speed={speed}
-          speedRef={speedRef}
-          setSpeed={setSpeed}
-          resetTimeout={resetTimeout}
-        />
-      </GridContainer>
+      <GridControls
+        rows={rows}
+        cols={cols}
+        running={running}
+        setRunning={setRunning}
+        runningRef={runningRef}
+        setGrid={setGrid}
+        runSimulation={runSimulation}
+        resetTimeout={resetTimeout}
+        clearTimeouts={clearTimeouts}
+      />
+      <SpeedControl
+        running={running}
+        speed={speed}
+        speedRef={speedRef}
+        setSpeed={setSpeed}
+        resetTimeout={resetTimeout}
+      />
     </Container>
   );
 };

@@ -15,7 +15,7 @@ interface CellProps {
 
 export const Cell = styled('div')<CellProps>`
   background-color: ${({ alive }) => (alive ? 'lime' : 'black')};
-  border: 1px white solid;
+  border: 1px #303436 solid;
   aspect-ratio: 1;
   ${({ disabled }) => (disabled ? 'pointer-events: none;' : '')}
 `;

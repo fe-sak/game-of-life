@@ -12,21 +12,27 @@ export const Container = styled('div')`
 
 export const StyledSlider = styled(Slider)`
   width: 50%;
-  color: black;
+  color: white;
   margin-left: 1.5%;
 
   .MuiSlider-thumb {
     &.Mui-focusVisible,
     &:hover {
-      box-shadow: 0 0 0 7px rgba(0, 0, 0, 0.16);
+      box-shadow: 0 0 0 7px rgba(256, 256, 256, 0.16);
     }
     &.Mui-active {
-      box-shadow: 0 0 0 10px rgba(0, 0, 0, 0.16);
+      box-shadow: 0 0 0 10px rgba(256, 256, 256, 0.16);
     }
+  }
+  .MuiSlider-markLabel {
+    color: white;
+  }
+  MuiSlider-markLabelActive {
+    color: blue;
   }
 `;
 
 export const StyledSpeedIcon = styled(SpeedIcon)`
-  color: black;
+  color: white;
   margin-bottom: 20px;
 `;
