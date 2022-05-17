@@ -24,16 +24,19 @@ const GameOfLife: FC = () => {
   speedRef.current = speed;
 
   const pushGridToGenerations = () => {
-    if (running) generations.current.push(grid);
-    // console.log(generations.current);
+    if (running && currentGeneration >= generations.current.length)
+      generations.current.push(grid);
   };
-  useEffect(pushGridToGenerations, [grid]);
+  useEffect(pushGridToGenerations, [currentGeneration]);
 
   const toggleRunning = () => {
     runningRef.current = !running;
     setRunning((running) => !running);
 
     if (!running) runSimulation();
+
+    if (!running && generations.current.length === 0)
+      generations.current.push(grid);
   };
 
   const simulationTimeouts: { current: NodeJS.Timeout[] } = useRef([]);
@@ -82,7 +85,6 @@ const GameOfLife: FC = () => {
 
       return newGrid;
     });
-    // console.log([...generations.current]);
 
     setCurrentGeneration((currentValue) => currentValue + 1);
 

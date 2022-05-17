@@ -10,6 +10,8 @@ import {
   StyledPlayArrowIcon,
   StyledRestartAltIcon,
   StyledShuffleIcon,
+  StyledSkipNextIcon,
+  StyledSkipPreviousIcon,
   StyledStopIcon,
 } from './styles';
 
@@ -57,11 +59,42 @@ const GridControls: FC<Props> = ({
     generations.current.length = 0;
   };
 
+  const retrocede = () => {
+    setCurrentGeneration((currentValue) => currentValue - 1);
+
+    const previousGen = generations.current[currentGeneration - 1];
+    setGrid(previousGen);
+  };
+
+  const advance = () => {
+    setCurrentGeneration((currentValue) => currentValue + 1);
+
+    const nextGen = generations.current[currentGeneration + 1];
+    setGrid(nextGen);
+  };
+
   return (
     <Container>
       <ButtonContainer onClick={toggleRunning}>
         {running ? <StyledStopIcon /> : <StyledPlayArrowIcon />}
       </ButtonContainer>
+
+      <ButtonContainer
+        onClick={retrocede}
+        disabled={currentGeneration <= 0 || running}
+      >
+        <StyledSkipPreviousIcon />
+      </ButtonContainer>
+
+      <ButtonContainer
+        onClick={advance}
+        disabled={
+          currentGeneration >= generations.current.length - 1 || running
+        }
+      >
+        <StyledSkipNextIcon />
+      </ButtonContainer>
+      <span>Generations: {currentGeneration}</span>
 
       <ButtonContainer onClick={clearGrid}>
         <StyledRestartAltIcon />
@@ -70,7 +103,6 @@ const GridControls: FC<Props> = ({
       <ButtonContainer onClick={randomGrid}>
         <StyledShuffleIcon />
       </ButtonContainer>
-      <span>Generations: {currentGeneration}</span>
     </Container>
   );
 };
