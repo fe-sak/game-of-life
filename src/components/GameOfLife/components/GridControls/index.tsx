@@ -18,11 +18,13 @@ interface Props {
   cols: number;
   running: boolean;
   setRunning: React.Dispatch<React.SetStateAction<boolean>>;
-  runningRef: React.MutableRefObject<boolean>;
   setGrid: React.Dispatch<React.SetStateAction<GridType>>;
-  runSimulation: () => void;
   resetTimeout: () => void;
   clearTimeouts: () => void;
+  currentGeneration: number;
+  setCurrentGeneration: React.Dispatch<React.SetStateAction<number>>;
+  generations: React.MutableRefObject<GridType[]>;
+  toggleRunning: () => void;
 }
 
 const GridControls: FC<Props> = ({
@@ -30,30 +32,29 @@ const GridControls: FC<Props> = ({
   cols,
   running,
   setRunning,
-  runningRef,
   setGrid,
-  runSimulation,
   resetTimeout,
   clearTimeouts,
+  currentGeneration,
+  setCurrentGeneration,
+  generations,
+  toggleRunning,
 }) => {
+  const clearGrid = () => {
+    setRunning(false);
+    setGrid(buildDeadGrid(rows, cols));
+    clearTimeouts();
+    setCurrentGeneration(0);
+    generations.current.length = 0;
+  };
+
   const randomGrid = () => {
     if (running) resetTimeout();
     else clearTimeout();
 
     setGrid(buildRandomGrid(rows, cols));
-  };
-
-  const clearGrid = () => {
-    setRunning(false);
-    setGrid(buildDeadGrid(rows, cols));
-    clearTimeouts();
-  };
-
-  const toggleRunning = () => {
-    runningRef.current = !running;
-    setRunning((running) => !running);
-
-    if (!running) runSimulation();
+    setCurrentGeneration(0);
+    generations.current.length = 0;
   };
 
   return (
@@ -69,6 +70,7 @@ const GridControls: FC<Props> = ({
       <ButtonContainer onClick={randomGrid}>
         <StyledShuffleIcon />
       </ButtonContainer>
+      <span>Generations: {currentGeneration}</span>
     </Container>
   );
 };

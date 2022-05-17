@@ -1,16 +1,19 @@
-import React, { FC, useCallback, useRef, useState } from 'react';
+import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
 import produce from 'immer';
 import { buildDeadGrid, countLiveNeighbours } from '../../utils/gridFunctions';
 import { Container } from './styles';
 import Grid from './components/Grid';
 import SpeedControl from './components/SpeedControl';
 import GridControls from './components/GridControls';
+import { GridType } from '../../types/Grid';
 
 const rows = 20;
 const cols = 30;
 
 const GameOfLife: FC = () => {
   const [grid, setGrid] = useState(() => buildDeadGrid(rows, cols));
+  const generations = useRef<GridType[]>([]);
+  const [currentGeneration, setCurrentGeneration] = useState(0);
 
   const [running, setRunning] = useState(false);
   const runningRef = useRef(running);
@@ -20,7 +23,36 @@ const GameOfLife: FC = () => {
   const speedRef = useRef(speed);
   speedRef.current = speed;
 
+  const pushGridToGenerations = () => {
+    if (running) generations.current.push(grid);
+    // console.log(generations.current);
+  };
+  useEffect(pushGridToGenerations, [grid]);
+
+  const toggleRunning = () => {
+    runningRef.current = !running;
+    setRunning((running) => !running);
+
+    if (!running) runSimulation();
+  };
+
   const simulationTimeouts: { current: NodeJS.Timeout[] } = useRef([]);
+
+  const clearTimeouts = () => {
+    simulationTimeouts.current.forEach((id) => clearTimeout(id));
+  };
+
+  function newTimeout() {
+    const timeout = 1000 / speedRef.current;
+    const timeoutId = setTimeout(runSimulation, timeout);
+    simulationTimeouts.current.push(timeoutId);
+  }
+
+  const resetTimeout = () => {
+    clearTimeouts();
+
+    newTimeout();
+  };
 
   const runSimulation = useCallback(() => {
     if (!runningRef.current) return;
@@ -47,27 +79,15 @@ const GameOfLife: FC = () => {
           }
         }
       });
+
       return newGrid;
     });
+    // console.log([...generations.current]);
+
+    setCurrentGeneration((currentValue) => currentValue + 1);
 
     newTimeout();
   }, [speedRef.current]);
-
-  const clearTimeouts = () => {
-    simulationTimeouts.current.forEach((id) => clearTimeout(id));
-  };
-
-  function newTimeout() {
-    const timeout = 1000 / speedRef.current;
-    const timeoutId = setTimeout(runSimulation, timeout);
-    simulationTimeouts.current.push(timeoutId);
-  }
-
-  const resetTimeout = () => {
-    clearTimeouts();
-
-    newTimeout();
-  };
 
   return (
     <Container>
@@ -78,11 +98,13 @@ const GameOfLife: FC = () => {
         cols={cols}
         running={running}
         setRunning={setRunning}
-        runningRef={runningRef}
         setGrid={setGrid}
-        runSimulation={runSimulation}
+        toggleRunning={toggleRunning}
         resetTimeout={resetTimeout}
         clearTimeouts={clearTimeouts}
+        currentGeneration={currentGeneration}
+        setCurrentGeneration={setCurrentGeneration}
+        generations={generations}
       />
       <SpeedControl
         running={running}

@@ -15,6 +15,11 @@ export const Container = styled('div')`
     cursor: pointer;
     font-size: 4vmin;
   }
+
+  span {
+    margin-left: 1%;
+    color: white;
+  }
 `;
 
 export const ButtonContainer = styled('div')`
