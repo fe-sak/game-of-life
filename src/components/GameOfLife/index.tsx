@@ -80,10 +80,12 @@ const GameOfLife: FC = () => {
               cols
             );
 
-            if (currentCell && (liveNeighbours < 2 || liveNeighbours > 3))
-              gridDraft[x][y] = 0;
+            const liveCellDie =
+              currentCell && (liveNeighbours < 2 || liveNeighbours > 3);
+            if (liveCellDie) gridDraft[x][y] = 0;
 
-            if (!currentCell && liveNeighbours === 3) gridDraft[x][y] = 1;
+            const deadCellComeAlive = !currentCell && liveNeighbours === 3;
+            if (deadCellComeAlive) gridDraft[x][y] = 1;
           }
         }
       });
