@@ -12,6 +12,7 @@ interface Props {
 
 const Grid: FC<Props> = ({ cols, grid, running, setGrid }) => {
   const [mouseButtonPressed, setMouseButtonPressed] = useState(false);
+
   window.addEventListener('mousedown', (event) => {
     if (event.button !== 0) return;
     setMouseButtonPressed(true);
@@ -52,7 +53,7 @@ const Grid: FC<Props> = ({ cols, grid, running, setGrid }) => {
         )}
       </Container>
     ),
-    [grid, mouseButtonPressed]
+    [grid, mouseButtonPressed, running]
   );
 };
 
