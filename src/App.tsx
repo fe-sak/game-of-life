@@ -1,12 +1,12 @@
 import React, { FC } from 'react';
-import Viewport from './components/Viewport';
+import TooltipProvider from './contexts/TooltipContext';
 import Home from './pages/Home';
 
 const App: FC = () => {
   return (
-    <Viewport>
+    <TooltipProvider>
       <Home />
-    </Viewport>
+    </TooltipProvider>
   );
 };
 

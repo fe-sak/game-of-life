@@ -7,7 +7,7 @@ import SpeedControl from './components/SpeedControl';
 import GridControls from './components/GridControls';
 import { GridType } from '../../types/Grid';
 
-const rows = 20;
+const rows = 30;
 const cols = 30;
 
 const GameOfLife: FC = () => {

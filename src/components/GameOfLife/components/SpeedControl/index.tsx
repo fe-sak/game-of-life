@@ -1,5 +1,6 @@
-import React, { FC, useState } from 'react';
-import ReactTooltip from 'react-tooltip';
+import React, { FC, useContext } from 'react';
+import { TooltipContext } from '../../../../contexts/TooltipContext';
+import ReactTooltipFix from '../ReactTooltipFix';
 import { Container, StyledSlider, StyledSpeedIcon } from './styles';
 
 interface Props {
@@ -17,7 +18,8 @@ const SpeedControl: FC<Props> = ({
   setSpeed,
   resetTimeout,
 }) => {
-  const [tooltip, showTooltip] = useState(true);
+  const { showTooltip } = useContext(TooltipContext);
+  if (!showTooltip) return <></>;
 
   const handleSpeedSlider = (_event: Event, newValue: number | number[]) => {
     if (newValue !== speed) {
@@ -46,15 +48,15 @@ const SpeedControl: FC<Props> = ({
       />
       <div>
         <StyledSpeedIcon
-          data-tip='Adjust speed of simulation'
+          data-tip='Adjust simulation speed'
           onMouseEnter={() => showTooltip(true)}
           onMouseLeave={() => {
             showTooltip(false);
             setTimeout(() => showTooltip(true), 50);
           }}
         />
-        {tooltip && <ReactTooltip effect='solid' />}
       </div>
+      <ReactTooltipFix />
     </Container>
   );
 };
