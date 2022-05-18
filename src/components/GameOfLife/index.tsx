@@ -29,6 +29,11 @@ const GameOfLife: FC = () => {
   };
   useEffect(pushGridToGenerations, [currentGeneration]);
 
+  const clearGenerations = () => {
+    generations.current.length = 0;
+    setCurrentGeneration(0);
+  };
+
   const toggleRunning = () => {
     runningRef.current = !running;
     setRunning((running) => !running);
@@ -93,7 +98,13 @@ const GameOfLife: FC = () => {
 
   return (
     <Container>
-      <Grid cols={cols} running={running} grid={grid} setGrid={setGrid} />
+      <Grid
+        cols={cols}
+        running={running}
+        grid={grid}
+        setGrid={setGrid}
+        clearGenerations={clearGenerations}
+      />
 
       <GridControls
         rows={rows}

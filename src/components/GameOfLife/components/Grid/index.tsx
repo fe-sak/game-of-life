@@ -8,9 +8,16 @@ interface Props {
   running: boolean;
   grid: GridType;
   setGrid: React.Dispatch<React.SetStateAction<GridType>>;
+  clearGenerations: () => void;
 }
 
-const Grid: FC<Props> = ({ cols, grid, running, setGrid }) => {
+const Grid: FC<Props> = ({
+  cols,
+  grid,
+  running,
+  setGrid,
+  clearGenerations,
+}) => {
   const [mouseButtonPressed, setMouseButtonPressed] = useState(false);
 
   window.addEventListener('mousedown', (event) => {
@@ -27,6 +34,7 @@ const Grid: FC<Props> = ({ cols, grid, running, setGrid }) => {
       const clickedCell = grid[x][y];
       gridDraft[x][y] = clickedCell === 1 ? 0 : 1;
     });
+    clearGenerations();
     setGrid(newGrid);
   };
 
