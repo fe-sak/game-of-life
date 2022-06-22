@@ -1,4 +1,4 @@
-# Track It
+# Game of Life
 
 <img src="https://media.giphy.com/media/62Yp8060L4xsbGPkYA/giphy.gif" alt='example of usage' />
 
