@@ -1,6 +1,6 @@
 # Game of Life
 
-<img src="" alt='screen recording of this project' />
+<img src="asdfasdf.gif" alt='screen recording of this project' />
 
 You can use it right now [clicking here!]([projeto-10-track-it-six.vercel.app](https://game-of-life-fe-sak.vercel.app/))
 
