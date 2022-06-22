@@ -6,8 +6,9 @@ You can use it right now [here!](projeto-10-track-it-six.vercel.app)
 
 ## About this project
 
-In 1970, mathematician John Conway created a cellular automaton named "Game of Life". It simulates the development of a life form on a 2d space grid.
-This webpage aims to recreate the Game of Life, allowing users to alter the initial state and watch the behavior of the system through time
+In 1970, mathematician John Conway created a cellular automaton named "Game of Life". It simulates the development of a life form on a 2d space grid. Each square represents a life, or as called by Conway, a cell. 
+
+This webpage aims to recreate the Game of Life, allowing users to create an initial grid state and watch the behavior of the system through time
 
 ### Why?
 
