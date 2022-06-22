@@ -1,8 +1,8 @@
 # Game of Life
 
-<img src="https://media.giphy.com/media/62Yp8060L4xsbGPkYA/giphy.gif" alt='example of usage' />
+<img src="" alt='screen recording of this project' />
 
-You can use it right now [here!](projeto-10-track-it-six.vercel.app)
+You can use it right now [clicking here!]([projeto-10-track-it-six.vercel.app](https://game-of-life-fe-sak.vercel.app/))
 
 ## About this project
 
