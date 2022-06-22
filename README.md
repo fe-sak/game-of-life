@@ -32,13 +32,17 @@ I was inspired the moment I saw this automaton while watching [The Art of Code](
 - react-dom
 - immer
 
+## Prerequisites for running this project on your machine
+- Git installed for cloning the project and managing source code changes. [Official Git page](https://git-scm.com)
+- Nodejs installed. It is recommended to use a version manager, such as [nvm](https://github.com/nvm-sh/nvm)
+
 ## How to install this app
 
   **Cloning the Repository**
 
 ```
-$ git clone git@github.com:fe-sak/track-it.git
-$ cd track-it
+$ git@github.com:fe-sak/game-of-life.git
+$ cd game-of-life
 ```
 
 **Installing dependencies**
