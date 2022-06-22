@@ -1,6 +1,5 @@
 # Game of Life
-
-<img src="asdfasdf.gif" alt='screen recording of this project' />
+<img src="https://user-images.githubusercontent.com/92526601/175125478-2454ef50-6dd6-4ed5-969b-6df5879471fb.gif" alt='screen recording of this project' />
 
 You can use it right now [clicking here!](https://game-of-life-fe-sak.vercel.app/)
 
@@ -26,12 +25,12 @@ I was inspired the moment I saw this automaton while watching [The Art of Code](
 
 ## Technologies used
 
+![TypeScript](https://img.shields.io/badge/-TypeScript-05122A?style=flat&logo=typescript)&nbsp;
 ![React](https://img.shields.io/badge/-React-05122A?style=flat&logo=react)&nbsp;
-![JavaScript](https://img.shields.io/badge/-JavaScript-05122A?style=flat&logo=javascript)&nbsp;
+![MUI](https://img.shields.io/badge/-MUI-05122A?style=flat&logo=mui)&nbsp;
 ![styled-components](https://img.shields.io/badge/-styled--components-05122A?style=flat&logo=styled-components)
-- react-router-dom, react-calendar, react-circular-progressbar, react-loader-spinner, react-toastify
-- dayjs
-- axios
+- react-dom
+- immer
 
 ## How to install this app
 
