@@ -11,7 +11,7 @@ This webpage aims to recreate the Game of Life, allowing users to create an init
 
 ### Why?
 
-I was inspired the moment I saw this automaton while watching [The Art of Code](https://www.youtube.com/watch?v=6avJHaC3C2U&t=34s) and decided to build a interactive system for people to play with
+I was inspired the moment I saw this automaton while watching [The Art of Code](https://www.youtube.com/watch?v=6avJHaC3C2U&t=34s) and decided to build an interactive system for people to play with
 
 ## Functionalities
 
