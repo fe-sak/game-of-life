@@ -56,8 +56,11 @@ I was inspired the moment I saw this automaton while watching [The Art of Code](
 
 [(Return to table of contents)](#table-of-contents)
 
-- Git installed for cloning the project and managing source code changes. [Official Git page](https://git-scm.com)
+
+- Bash Shell or any kind of shell for running commands in your terminal (all commands seen in this document are run inside a shell). If you're using Linux, it is installed by default. If you're using Windows, I suggest you follow this [guide](https://itsfoss.com/install-bash-on-windows/)
+- [Git](https://git-scm.com) installed for cloning the project and managing source code changes. You must also configure your git tool for connecting to GitHub using ssh. [The official GitHub guides](https://docs.github.com/en/authentication/connecting-to-github-with-ssh)
 - Nodejs installed. It is recommended to use a version manager, such as [nvm](https://github.com/nvm-sh/nvm)
+- A IDE for coding. The most popular one is [VS Code](https://code.visualstudio.com/)
 
 ## Install the application locally
 
