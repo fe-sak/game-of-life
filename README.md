@@ -76,7 +76,7 @@ $ cd game-of-life
 # Install dependencies: 
 $ yarn
 
-_or_
+# _or_
 
 $ npm install
 ```
