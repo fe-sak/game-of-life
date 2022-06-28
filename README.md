@@ -33,13 +33,13 @@ I was inspired the moment I saw this automaton while watching [The Art of Code](
 
 [(Return to table of contents)](#table-of-contents)
 
-- Click to toggle cells
-- Draw to toggle cells
-- Run simulation
-- Pause simulation
-- Retrocede one generation (simulation must be paused to retrocede)
-- Advance one generation (simulation must be paused to advance)
-- Choose simulation speed using the slider
+- [x] Click to toggle cells
+- [x] Draw to toggle cells
+- [x] Run simulation
+- [x] Pause simulation
+- [x] Retrocede one generation (simulation must be paused to retrocede)
+- [x] Advance one generation (simulation must be paused to advance)
+- [x] Choose simulation speed using the slider
 
 ## Technologies used
 
